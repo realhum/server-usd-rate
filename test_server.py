@@ -1,4 +1,4 @@
-from settings import ADDRESS, PORT
+from settings import ADDRESS, PORT, USD_TEST_RATE
 from server import get_usd_rate
 import requests
 import unittest
@@ -19,12 +19,12 @@ class TestServer(unittest.TestCase):
         data = {'usd': 10}
         r = requests.get("http://{}:{}".format(ADDRESS, PORT),
                          json=data)
-        self.assertEqual(r.json()['rub'], 733.092)
+        self.assertEqual(r.json()['rub'], round(USD_TEST_RATE * 10, 4))
 
 
 class TestRate(unittest.TestCase):
     def test_get_usd_rate(self):
-        self.assertEqual(get_usd_rate(), 73.3092)
+        self.assertEqual(get_usd_rate(), USD_TEST_RATE)
 
 
 if __name__ == '__main__':
